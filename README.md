@@ -18,3 +18,9 @@ Transforms the data that was scraped into the daily data for the regression.
 
 ## regression
 Uses R (lm/plm) to run the desired regressions.
+
+## Additional Data
+The additional data is gathered from:
+salary data -> Hoopshype (See scripts/collection/nba_scrape/nba_scrape.py)
+Player Impact Estimate (PIE) data -> NBA Stats (See scripts/collection/nba_scrape/nba_scrape.py) (March 16th 2023)
+Twitter Followers -> Gathered Manually (March 16th 2023)

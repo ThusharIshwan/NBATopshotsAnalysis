@@ -1,5 +1,5 @@
 import pandas as pd
-from os import listdir, path, remove
+from os import listdir
 import datetime
 from scripts.utils import consolodate_data
 
@@ -9,22 +9,24 @@ play_info = play_df[["playID", "playerName", "playType", "date"]].copy(deep=True
 play_info.rename(columns={"date":"playDate"}, inplace=True)
 
 # Loading the player popularity indicators
-player_pop_data = pd.read_csv("data\player_indeps.csv")
+player_pop_data = pd.read_csv("additional_data/basketball_data.csv")
 players_with_PIE = list(player_pop_data["player"])
 
 ### Getting the supplies from the moment data
-play_df = pd.read_csv("data/play_data/Play_File_0.csv")
+play_df = pd.read_csv("data/play_data/Play_File_0.csv") # After Scraping
 play_info = play_df[["playID", "playerName", "playType", "date"]].copy(deep=True)
 play_info.rename(columns={"date":"playDate"}, inplace=True)
 
+
+# Used after scraping the data
 
 play_counts = {}
 edition_counts = {}
 type_counts = {}
 player_counts = {}
-for x in listdir("data/moment_data"):
+for x in listdir("data/moment_data"): 
 
-    df = pd.merge(pd.read_csv(f"data/moment_data/{x}"), play_info, on= "playID",how="left")
+    df = pd.merge(pd.read_csv(f"data/moment_data/{x}"), play_info, on= "playID",how="left") 
     df["subeditionID"] = df["subeditionID"].fillna(0)
     play_count_curr = df.groupby("playID").agg({"momentID": "count"}).reset_index()
     edition_counts_curr = df.groupby(["playID", "subeditionID"]).agg({"momentID": "count"}).reset_index()
@@ -130,45 +132,4 @@ for f in listdir("data/txn_data/play_consolodated"):
     
     t_df_re = pd.merge(t_df_re.rename(columns={"playerName":"player"}),player_pop_data,on="player" )
     t_df_re.to_csv(f"data/txn_data/play_consolodated/{f}", index=False)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
