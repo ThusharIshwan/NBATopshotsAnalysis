@@ -19,8 +19,11 @@ Transforms the data that was scraped into the daily data for the regression.
 ## regression
 Uses R (lm/plm) to run the desired regressions.
 
-## Additional Data
+## data/basketball_data.csv
 The additional data is gathered from:
 salary data -> Hoopshype (See scripts/collection/nba_scrape/nba_scrape.py)
 Player Impact Estimate (PIE) data -> NBA Stats (See scripts/collection/nba_scrape/nba_scrape.py) (March 16th 2023)
 Twitter Followers -> Gathered Manually (March 16th 2023)
+
+## data/date_accumulated_edition_play_prices.csv
+This is the final result for the data used in the regression analysis. It is acquired by using the methods in the collection folder to scrape the flow blockchain, and then transform that data by accumulating the transactions by date, play and edition.
